@@ -58,7 +58,7 @@ public class MealServlet extends HttpServlet {
                 dateTime,
                 new String(request.getParameter("description")),
                 Integer.parseInt(request.getParameter("calories")));
-        String userid = request.getParameter("userid");
+
         if(dateTime == null){
             LOG.debug("adding meal to mealList");
             userMealService.addUserMeal(userMeal);
