@@ -76,10 +76,12 @@ public class MealServlet extends HttpServlet {
         UserMeal userMeal;
 
         if (dateTime != null && description != null && calories != null) {
-            userMeal = new UserMeal(
-                    LocalDateTime.parse(dateTime),
-                    description,
-                    Integer.parseInt(calories));
+            try {
+                userMeal = new UserMeal(
+                        LocalDateTime.parse(dateTime),
+                        description,
+                        Integer.parseInt(calories));
+
             String id = request.getParameter("id");
             if (id == null){
                 LOG.debug("adding meal to mealList");
@@ -89,6 +91,10 @@ public class MealServlet extends HttpServlet {
                 LOG.debug("updating meal in mealList");
                 userMeal.setId(Integer.parseInt(id));
                 mealService.save(userMeal);
+            }
+            }
+            catch (Exception e){
+                LOG.error("Exception", e);
             }
         }
         //request.setAttribute("mealList", mealService.getAll());
