@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 public class UserMeal {
     protected Integer id;
 
+    protected Integer userId;
+
     protected final LocalDateTime dateTime;
 
     protected final String description;
@@ -30,13 +32,15 @@ public class UserMeal {
         this.id = id;
     }
 
+    public void setUserId(Integer userId) {this.userId = userId;}
+
+    public Integer getUserId() {return userId;}
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() {return description;}
 
     public int getCalories() {
         return calories;

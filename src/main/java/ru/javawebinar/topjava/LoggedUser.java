@@ -7,9 +7,20 @@ import ru.javawebinar.topjava.util.UserMealsUtil;
  * 06.03.2015.
  */
 public class LoggedUser {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(LoggedUser.class);
+
+    private static int logId;
 
     public static int id() {
-        return 1;
+        return logId;
+    }
+
+   /* public static int getLogId() {
+        return logId;
+    }
+*/
+    public static void setId(int id) {
+        LoggedUser.logId = id;
     }
 
     public static int getCaloriesPerDay() {
