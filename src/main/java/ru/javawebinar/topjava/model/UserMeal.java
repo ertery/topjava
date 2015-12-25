@@ -25,6 +25,9 @@ public class UserMeal {
         this.description = description;
         this.calories = calories;
     }
+    public UserMeal(UserMeal um) {
+        this(um.getId(), um.getDateTime(), um.getDescription(), um.getCalories());
+    }
 
     public void setId(int id) {
         this.id = id;
