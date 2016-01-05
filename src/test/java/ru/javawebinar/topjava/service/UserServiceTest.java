@@ -2,14 +2,9 @@ package ru.javawebinar.topjava.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.UserTestData.*;
 import ru.javawebinar.topjava.model.Role;
@@ -22,14 +17,8 @@ import java.util.Collections;
 
 import static ru.javawebinar.topjava.UserTestData.*;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(Profiles.POSTGRES)
-public class UserServiceTest {
+@ActiveProfiles(Profiles.DATAJPA)
+public class UserServiceTest  extends ServiceTest {
 
     @Autowired
     protected UserService service;
@@ -40,6 +29,7 @@ public class UserServiceTest {
     }
         
     @Test
+    @Override
     public void testSave() throws Exception {
         TestUser tu = new TestUser(null, "New", "new@gmail.com", "newPass", 1555, false, Collections.singleton(Role.ROLE_USER));
         User created = service.save(tu.asUser());
@@ -53,23 +43,27 @@ public class UserServiceTest {
     }
 
     @Test
+    @Override
     public void testDelete() throws Exception {
         service.delete(USER_ID);
         MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), service.getAll());
     }
 
     @Test(expected = NotFoundException.class)
+    @Override
     public void testNotFoundDelete() throws Exception {
         service.delete(1);
     }
 
     @Test
+    @Override
     public void testGet() throws Exception {
         User user = service.get(USER_ID);
         MATCHER.assertEquals(USER, user);
     }
 
     @Test(expected = NotFoundException.class)
+    @Override
     public void testGetNotFound() throws Exception {
         service.get(1);
     }
@@ -82,12 +76,14 @@ public class UserServiceTest {
     }
 
     @Test
+    @Override
     public void testGetAll() throws Exception {
         Collection<User> all = service.getAll();
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER), all);
     }
 
     @Test
+    @Override
     public void testUpdate() throws Exception {
         TestUser updated = new TestUser(USER);
         updated.setName("UpdatedName");
