@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,7 @@ import java.time.LocalDateTime;
 })
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserMeal extends BaseEntity {
     public static final String GET = "UserMeal.get";
     public static final String ALL_SORTED = "UserMeal.getAll";
@@ -32,6 +35,7 @@ public class UserMeal extends BaseEntity {
 
     @Column(name = "date_time", nullable = false)
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     protected LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)

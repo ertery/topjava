@@ -21,6 +21,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 public class JacksonObjectMapper extends ObjectMapper {
 
     private static final ObjectMapper MAPPER = new JacksonObjectMapper();
+    //для игнорирования ненужных полей - еще один способ
+    //private static final ObjectMapper MAPPER = new JacksonObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public static ObjectMapper getMapper() {
         return MAPPER;
