@@ -150,7 +150,7 @@
         };
 
         oTable_datatable.dataTable(oTable_datatable_params);
-        makeEditable();
+        makeEditableUser();
     });
 </script>
 </html>

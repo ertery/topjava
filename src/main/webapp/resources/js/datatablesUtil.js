@@ -5,6 +5,17 @@ function makeEditable() {
         $('#editRow').modal();
     });
 
+    $/*('#filter').click(function () {
+        $.ajax({
+            url: ajaxUrl + id,
+            type: 'DELETE',
+            success: function () {
+                updateTable();
+                successNoty('Deleted');
+            }
+        });
+    });*/
+
     $('.delete').click(function () {
         deleteRow($(this).attr("id"));
     });
