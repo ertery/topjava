@@ -69,7 +69,7 @@
                 </thead>
                 <c:forEach items="${mealList}" var="meal">
                     <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.UserMealWithExceed"/>
-                    <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
+                    <tr class="${meal.exceed ? 'exceeded' : 'normal'}" id="${meal.id}">
                         <td>
                    <%--<fmt:parseDate value="${meal.dateTime}" pattern="y-M-dd'T'H:m" var="parsedDate"/>--%>
                    <%--<fmt:formatDate value="${parsedDate}" pattern="yyyy.MM.dd HH:mm" />--%>
@@ -77,8 +77,8 @@
                         </td>
                         <td>${meal.description}</td>
                         <td>${meal.calories}</td>
-                        <td><a class="btn btn-xs btn-primary edit" id="${meal.id}">Update</a></td>
-                        <td><a class="btn btn-xs btn-danger delete" id="${meal.id}">Delete</a></td>
+                        <td><a class="btn btn-xs btn-primary edit">Update</a></td>
+                        <td><a class="btn btn-xs btn-danger delete" >Delete</a></td>
                     </tr>
                 </c:forEach>
             </table>
@@ -159,7 +159,7 @@
     });
 
     $('#dateTime').datetimepicker({
-        format: 'Y-m-d H:i',
+        format: 'Y-m-d\\TH:i',
         lang:'ru'
     });
 </script>
@@ -201,6 +201,15 @@
                 ]
             ]
         };
+
+        $('.checkbox').change (function(){
+            var thisCheck = $(this);
+
+            if ( thisCheck.is(':checked') ) {
+                window.alert(thisCheck.prop());
+            }
+        });
+
 
         oTable_datatable.dataTable(oTable_datatable_params);
         makeEditable();

@@ -1,4 +1,4 @@
-function makeEditable() {
+function makeEditable(table) {
 
     $('#add').click(function () {
         $('#id').val(0);
@@ -17,11 +17,12 @@ function makeEditable() {
     });*/
 
     $('.delete').click(function () {
-        deleteRow($(this).attr("id"));
+
+        deleteRow($(this).closest('tr').attr('id'), table);
     });
 
     $('#detailsForm').submit(function () {
-        save();
+        save(table);
         return false;
     });
 
@@ -30,28 +31,28 @@ function makeEditable() {
     });
 }
 
-function deleteRow(id) {
+function deleteRow(id, table) {
     $.ajax({
         url: ajaxUrl + id,
         type: 'DELETE',
         success: function () {
-            updateTable();
+            updateTable(table);
             successNoty('Deleted');
         }
     });
 }
 
-function updateTable() {
+function updateTable(table) {
     $.get(ajaxUrl, function (data) {
-        oTable_datatable.fnClearTable();
+        table.clear();
         $.each(data, function (key, item) {
-            oTable_datatable.fnAddData(item);
+            table.row.add(item);
         });
-        oTable_datatable.fnDraw();
+        table.draw();
     });
 }
 
-function save() {
+function save(table) {
     var form = $('#detailsForm');
     debugger;
     $.ajax({
@@ -60,7 +61,7 @@ function save() {
         data: form.serialize(),
         success: function () {
             $('#editRow').modal('hide');
-            updateTable();
+            updateTable(table);
             successNoty('Saved');
         }
     });
@@ -92,4 +93,20 @@ function failNoty(event, jqXHR, options, jsExc) {
         type: 'error',
         layout: 'bottomRight'
     });
+
+
+    function makeEditableUser() {
+        $("input[type='checkbox']").change(function () {
+            var thisCheck = $(this);
+
+            if (thisCheck.is(':checked')) {
+                window.alert(thisCheck.attr("id"));
+            }
+        });
+    }
+
 }
+
+
+
+
