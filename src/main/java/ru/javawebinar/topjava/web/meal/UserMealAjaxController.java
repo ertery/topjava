@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.to.UserMealWithExceed;
 import ru.javawebinar.topjava.util.TimeUtil;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -31,15 +32,12 @@ public class UserMealAjaxController extends AbstractUserMealController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(@RequestParam("id") int id,
-                               @RequestParam("datetime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
-                               @RequestParam("description") String description,
-                               @RequestParam("calories") int calories) {
-        UserMeal meal = new UserMeal(id, dateTime, description, calories);
-        if (id == 0) {
+    public void updateOrCreate(@Valid UserMeal userMeal) {
+        UserMeal meal = new UserMeal(userMeal.getId(), userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories());
+        if (userMeal.getId() == 0) {
             super.create(meal);
         } else {
-            super.update(meal, id);
+            super.update(meal, userMeal.getId());
         }
     }
 

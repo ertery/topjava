@@ -61,12 +61,14 @@
                         <th></th>
                     </tr>
                     </thead>
+                </table>
+                <%--
                     <c:forEach items="${mealList}" var="meal">
                         <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.UserMealWithExceed"/>
                         <tr class="${meal.exceed ? 'exceeded' : 'normal'}" id="${meal.id}">
                             <td>
                                     <%--<fmt:parseDate value="${meal.dateTime}" pattern="y-M-dd'T'H:m" var="parsedDate"/>--%>
-                                    <%--<fmt:formatDate value="${parsedDate}" pattern="yyyy.MM.dd HH:mm" />--%>
+                                    <%--<fmt:formatDate value="${parsedDate}" pattern="yyyy.MM.dd HH:mm" />
                                 <%=TimeUtil.toString(meal.getDateTime())%>
                             </td>
                             <td>${meal.description}</td>
@@ -75,7 +77,7 @@
                             <td><a class="btn btn-xs btn-danger delete">Delete</a></td>
                         </tr>
                     </c:forEach>
-                </table>
+                --%>
             </div>
         </div>
     </div>
@@ -134,8 +136,9 @@
 <script type="text/javascript" src="webjars/datatables/1.10.9/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.2.4/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
+<script type="text/javascript" src="resources/js/userDatatables.js"></script>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/profile/meals/';
+   /* var ajaxUrl = 'ajax/profile/meals/';
     var datatableApi;
 
     function updateTable() {
@@ -148,9 +151,9 @@
             }
         });
         return false;
-    }
+    }*/
 
-    $(function () {
+    /*$(function () {
         datatableApi = $('#datatable').DataTable({
             "bPaginate": false,
             "bInfo": false,
@@ -187,7 +190,7 @@
         });
         makeEditable();
         init();
-    });
+    });*/
 
     function init() {
     }
